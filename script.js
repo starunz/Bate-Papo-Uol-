@@ -7,8 +7,8 @@ let previousMessage = '';
 const startChat = () => {
     start();
     resquestMessages();
-    //setInterval(resquestMessages, 3000);
-    //setInterval(validatePermanence, 5000);
+    setInterval(resquestMessages, 3000);
+    setInterval(validatePermanence, 5000);
     document.addEventListener('keyup', sendEnter);
 }
 
@@ -19,7 +19,7 @@ const enterTheChat = () => {
     const userName = {
         name: user
     }
-    console.log(userName);
+
     const promise = axios.post(`${url}/participants`, userName);
     promise.then(startChat);
     promise.catch(errorEntering);
@@ -44,7 +44,6 @@ const errorSending = () => {
 }
 
 const resquestMessages = () => {
-    console.log('mensagens chegando')
     const promisse = axios.get(`${url}/messages`);
     promisse.then(messagesChat);
 }
@@ -75,12 +74,12 @@ const messagesChat = (response) => {
             `
         }
         if(response.data[i].type === 'private_message' && 
-        response.data[i].from === user || response.data[i].to === user) {
+        (response.data[i].from === user || response.data[i].to === user || response.data[i].to === 'Todos')) {
             messages.innerHTML += `
-            <li class="message-public">
+            <li class="message-private">
                 <span class="time">(${response.data[i].time})</span>
                 <strong>${response.data[i].from}</strong>
-                <span> para </span>
+                <span> reservadamente para </span>
                 <strong>${response.data[i].to}: </strong>
                 <span>${response.data[i].text}</span>
             </li>
@@ -88,6 +87,7 @@ const messagesChat = (response) => {
         }
     }
     scroll();
+    console.log(response.data)
 }
 
 const sendMessage = () => {
@@ -102,9 +102,7 @@ const sendMessage = () => {
     const promise = axios.post(`${url}/messages`, sending);
     promise.then(resquestMessages);
     promise.catch(errorSending); 
-    toSend = ''; //ver depois pq não está resetando
-
-    
+    document.querySelector('.input-send').value = ''; 
 }
 
 const sendEnter = (event) => {
@@ -131,9 +129,11 @@ const login = () => {
 }
 
 const start = () => {
+    document.querySelector('.login').classList.add('hidden');
+
     document.querySelector('.header').classList.remove('hidden');
     document.querySelector('.message-container').classList.remove('hidden')
     document.querySelector('.footer').classList.remove('hidden');
 }
 
-enterTheChat();
+login();
