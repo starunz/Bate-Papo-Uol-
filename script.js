@@ -13,7 +13,6 @@ const startChat = () => {
 }
 
 const enterTheChat = () => {
-
     user = document.querySelector('.enter-name').value;
 
     const userName = {
@@ -31,15 +30,17 @@ const validatePermanence = () => {
     });
 }
 
-function errorEntering(error) {
+const errorEntering = (error) => {
     if (error.response.status === 400){
         alert('Já existe um usuário com esse nome ou o campo está vazio, por favor insira um nome válido 🙂');
     }
     login();
 }
 
-const errorSending = () => {
-    alert ('Ocorreu um error, faça login novamente na sala 🙂');
+const errorSending = (error) => {
+    if (error.response.status === 400){
+        alert ('Ocorreu um error, faça login novamente na sala 🙂');
+    }
     login();
 }
 
@@ -87,14 +88,13 @@ const messagesChat = (response) => {
         }
     }
     scroll();
-    console.log(response.data)
 }
 
 const sendMessage = () => {
     let toSend = document.querySelector('.input-send').value;
     const sending = {
         from: user,
-        to: recipient,
+        tos: recipient,
         text: toSend,
         type: typeMessage
     }
@@ -102,6 +102,7 @@ const sendMessage = () => {
     const promise = axios.post(`${url}/messages`, sending);
     promise.then(resquestMessages);
     promise.catch(errorSending); 
+    
     document.querySelector('.input-send').value = ''; 
 }
 
