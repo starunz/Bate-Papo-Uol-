@@ -9,6 +9,7 @@ const startChat = () => {
     resquestMessages();
     //setInterval(resquestMessages, 3000);
     //setInterval(validatePermanence, 5000);
+    document.addEventListener('keyup', sendEnter);
 }
 
 const enterTheChat = () => {
@@ -31,7 +32,6 @@ const validatePermanence = () => {
 }
 
 function errorEntering(error) {
-
     if (error.response.status === 400){
         alert('Já existe um usuário com esse nome ou o campo está vazio, por favor insira um nome válido 🙂');
     }
@@ -103,6 +103,14 @@ const sendMessage = () => {
     promise.then(resquestMessages);
     promise.catch(errorSending); 
     toSend = ''; //ver depois pq não está resetando
+
+    
+}
+
+const sendEnter = (event) => {
+    if(event.key === 'Enter') {
+        sendMessage();
+    }
 }
 
 const scroll = () => {
