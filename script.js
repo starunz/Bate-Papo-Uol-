@@ -2,6 +2,7 @@ let url = 'https://mock-api.driven.com.br/api/v4/uol';
 let user;
 let recipient = 'Todos';
 let typeMessage = 'message';
+let previousMessage = '';
 
 const startChat = () => {
 
@@ -91,6 +92,7 @@ const messagesChat = (response) => {
             `
         }
     }
+    scroll();
 }
 
 const sendMessage = () => {
@@ -106,6 +108,15 @@ const sendMessage = () => {
     promise.then(resquestMessages);
     promise.catch(errorEntering); //tratar melhor depois
     //depois disso limpar o input 
+}
+
+const scroll = () => {
+    const lastMessage = document.querySelector (".message-container li:last-of-type");
+    if(lastMessage.innerHTML !== previousMessage.innerHTML) {
+        lastMessage.scrollIntoView();
+
+    }
+    previousMessage = lastMessage;
 }
 
 enterTheChat();
