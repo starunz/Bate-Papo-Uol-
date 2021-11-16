@@ -10,6 +10,12 @@ const enterTheChat = () => {
 }
 
 const startChat = () => {
+    resquestMessages();
+    //setInterval(resquestMessages, 3000);
+}
+
+const resquestMessages = () => {
+    console.log('mensagens chegando')
     const promisse =axios.get(`${url}/messages`);
     promisse.then(messagesChat);
 }
@@ -48,7 +54,8 @@ const messagesChat = (response) => {
         //quando eu sei que a mensagem é privada ? 
         //quando eu enviar ou eu receber, ok 
 
-        if(response.data[i].type === 'private_message' && response.data[i].from === 'user' || response.data[i].to === 'user') {
+        if(response.data[i].type === 'private_message' && 
+        response.data[i].from === user || response.data[i].to === user) {
             messagens.innerHTML += `
             <li class="message-public">
                 <span class="time">(${response.data[i].time})</span>
