@@ -26,12 +26,23 @@ const messagesChat = (response) => {
         if (response.data[i].type === 'status') {
             messagens.innerHTML += `
             <li class="message-status">
-            <span class="time">(${response.data[i].time})</span>
-            <strong>${response.data[i].from}</strong>
-            <span> para </span>
-            <strong>${response.data[i].to}: </strong>
-            <span>${response.data[i].text}</span>
-          </li>
+                <span class="time">(${response.data[i].time})</span>
+                <strong>${response.data[i].from}</strong>
+                <span> para </span>
+                <strong>${response.data[i].to}: </strong>
+                <span>${response.data[i].text}</span>
+            </li>
+            `
+        }
+        if (response.data[i].type === 'message') {
+            messagens.innerHTML += `
+            <li class="message-public">
+                <span class="time">(${response.data[i].time})</span>
+                <strong>${response.data[i].from}</strong>
+                <span> para </span>
+                <strong>${response.data[i].to}: </strong>
+                <span>${response.data[i].text}</span>
+            </li>
             `
         }
     }
