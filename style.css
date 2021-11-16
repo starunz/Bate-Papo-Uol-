@@ -3,7 +3,7 @@
 }
 
 body {
-    background: #FFFFFF;
+    background-color: #f3f3f3;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -69,6 +69,7 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #FFFFFF;
 }
 
 header {
@@ -91,7 +92,7 @@ main li {
     width: 100%;
     padding: 10px;
     word-break: break-word;
-    /*margin: 5px 0;*/
+    margin: 5px 0;
 }
 
 .message-status {
