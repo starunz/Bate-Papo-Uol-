@@ -1,34 +1,60 @@
 let url = 'https://mock-api.driven.com.br/api/v4/uol';
-let user = 'ue';
+let user;
+
+const startChat = () => {
+
+    //const hidden = document.querySelector('.login');
+    //hidden.classList.add(hidden);
+
+    resquestMessages();
+    setInterval(resquestMessages, 3000);
+    setInterval(validatePermanence, 5000);
+}
 
 const enterTheChat = () => {
-    const user = document.querySelector('.enter-name').value;
+
+    //user = document.querySelector('.enter-name').value;
+    user = prompt('qual seu nome?');
     const userName = {
         name: user
     }
     console.log(userName);
+    const promise = axios.post(`${url}/participants`, userName);
+    promise.then(startChat);
+    promise.catch(errorEntering);
 }
 
-const startChat = () => {
-    resquestMessages();
-    //setInterval(resquestMessages, 3000);
+const validatePermanence = () => {
+    axios.post(`${url}/status`, {
+        name: user
+    });
+    //console.log(promise);
+    console.log(user)
+
 }
+
+function errorEntering(error) {
+
+    //const visible = document.querySelector('.login');
+
+    if (error.response.status === 400){
+        alert('Já existe um usuário com esse nome ou o campo está vazio, por favor insira um nome válido 🙂');
+    }
+    window.location.reload();
+    //visible.classList.remove(hidden);
+}
+
 
 const resquestMessages = () => {
     console.log('mensagens chegando')
-    const promisse =axios.get(`${url}/messages`);
+    const promisse = axios.get(`${url}/messages`);
     promisse.then(messagesChat);
 }
 
 const messagesChat = (response) => {
-    console.log(response.data);
-
-    //ok, já sei que as mensagens estão chegando, e meu servirdor me retorna um array
-    //e eu quero percorrer esse array filtrando as mensagens, ok? ok! chama :v
-
+  
     const messagens = document.querySelector('.message-container');
-    messagens.innerHTML = ''; //quero que comece vazio :v
-    //agora vou percorrer esse array 
+    messagens.innerHTML = ''; 
     for(let i = 0 ; i < response.data.length ; i++) {
         if (response.data[i].type === 'status') {
             messagens.innerHTML += `
@@ -50,10 +76,6 @@ const messagesChat = (response) => {
             </li>
             `
         }
-        //agora vamos pensar!
-        //quando eu sei que a mensagem é privada ? 
-        //quando eu enviar ou eu receber, ok 
-
         if(response.data[i].type === 'private_message' && 
         response.data[i].from === user || response.data[i].to === user) {
             messagens.innerHTML += `
@@ -69,4 +91,4 @@ const messagesChat = (response) => {
     }
 }
 
-startChat();
+enterTheChat();
