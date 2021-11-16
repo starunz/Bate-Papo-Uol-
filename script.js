@@ -1,4 +1,10 @@
-function namee() {
-    const name = document.querySelector('.enter-name').value;
-    console.log(name);
+let url = 'https://mock-api.driven.com.br/api/v4/uol/';
+
+const namee = () => {
+    const user = document.querySelector('.enter-name').value;
+    const userName = {
+        name: user
+    }
+
+    console.log(userName);
 }

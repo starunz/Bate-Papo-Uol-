@@ -12,12 +12,52 @@
 </head>
 <body>
 
-    <div class="login">
+    <div class="login hidden">
         <img src="img/logo.png" alt="logo-bp-Uol">
         <input placeholder="Digite seu nome" class="enter-name" type="text">
         <button class="start" onclick="namee()">Entrar</button>
     </div>
 
+    <header>
+        <img src="img/logo.png">
+        <ion-icon name="people-sharp" onclick=""></ion-icon>
+    </header>
+
+    <main>
+        <ul class="message-container">
+          <li class="message-status">
+            <span class="time">(28:28:00)</span>
+            <strong>Ue</strong>
+            <span> para </span>
+            <strong>Ue 2: </strong>
+            <span>1,2,3 testando</span>
+          </li>
+          <li class="message-public">
+            <span class="time">(28:28:00)</span>
+            <strong>Ue</strong>
+            <span> para </span>
+            <strong>Ue 2: </strong>
+            <span>1,2,3 testando</span>
+          </li>
+          <li class="message-private">
+            <span class="time">(28:28:00)</span>
+            <strong>Ue</strong>
+            <span> reservadamente para </span>
+            <strong>Ue 2: </strong>
+            <span>1,2,3 testando</span>
+          </li>
+        </ul>
+    </main>
+
+    <footer>
+        <div class="message-sending">
+          <input placeholder="Escreva aqui...">
+          <span>Enviando para Todos</span>
+        </div>
+        <button class="send-message" onclick="">
+          <ion-icon name="paper-plane-outline"></ion-icon>
+        </button>
+    </footer>
     
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
