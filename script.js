@@ -94,7 +94,7 @@ const sendMessage = () => {
     let toSend = document.querySelector('.input-send').value;
     const sending = {
         from: user,
-        tos: recipient,
+        to: recipient,
         text: toSend,
         type: typeMessage
     }
@@ -102,7 +102,7 @@ const sendMessage = () => {
     const promise = axios.post(`${url}/messages`, sending);
     promise.then(resquestMessages);
     promise.catch(errorSending); 
-    
+
     document.querySelector('.input-send').value = ''; 
 }
 
