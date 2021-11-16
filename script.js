@@ -1,5 +1,7 @@
 let url = 'https://mock-api.driven.com.br/api/v4/uol';
 let user;
+let recipient = 'Todos';
+let typeMessage = 'message';
 
 const startChat = () => {
 
@@ -7,8 +9,8 @@ const startChat = () => {
     //hidden.classList.add(hidden);
 
     resquestMessages();
-    setInterval(resquestMessages, 3000);
-    setInterval(validatePermanence, 5000);
+    //setInterval(resquestMessages, 3000);
+    //setInterval(validatePermanence, 5000);
 }
 
 const enterTheChat = () => {
@@ -89,6 +91,21 @@ const messagesChat = (response) => {
             `
         }
     }
+}
+
+const sendMessage = () => {
+    const toSend = document.querySelector('.input-send').value;
+    const sending = {
+        from: user,
+        to: recipient,
+        text: toSend,
+        type: typeMessage
+    }
+
+    const promise = axios.post(`${url}/messages`, sending);
+    promise.then(resquestMessages);
+    promise.catch(errorEntering); //tratar melhor depois
+    //depois disso limpar o input 
 }
 
 enterTheChat();
